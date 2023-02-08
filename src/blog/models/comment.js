@@ -14,13 +14,11 @@ const commentSchema = new mongoose.Schema({
         required: true,
         type: jsonSchema.v4.type,
         unique: true,
-        default: "1",
     },
     post: {
         type: jsonSchema.v4.type,
     },
 });
-
 
 commentSchema.pre('save', function (next) {
     this.id = uuid();

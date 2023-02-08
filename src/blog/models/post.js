@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const { uuid, jsonSchema } = require('uuidv4');
 
 const postSchema = new mongoose.Schema({
+    commentsCount: {
+        type: Number,
+        default: 0,
+    },
     content: {
         type: String,
     },
@@ -13,7 +17,7 @@ const postSchema = new mongoose.Schema({
         type: jsonSchema.v4.type,
         required: true,
         unique: true,
-        default: "1",
+        default: '1',
     },
     title: {
         type: String,
@@ -22,11 +26,6 @@ const postSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
     },
-});
-
-postSchema.pre('save', function (next) {
-    this.id = uuid();
-    next();
 });
 
 module.exports = Post = mongoose.model('Post', postSchema);

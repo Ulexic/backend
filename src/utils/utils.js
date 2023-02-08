@@ -1,4 +1,4 @@
-removeFields = (val) => {
+removeFields = val => {
     if (val) {
         delete val._id;
         delete val.__v;

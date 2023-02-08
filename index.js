@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
 
-let port = 4000;
+dotenv.config();
+
+const port = process.env.PORT || 4000;
 
 app.use(express.json());
 
 const routes = [
-    { path: "/account", router: require("./src/account/router") },
-    { path: "/blog", router: require("./src/blog/router") },
-    { path: "/profile", router: require("./src/profile/router") }
+    { path: '/account', router: require('./src/account/router') },
+    { path: '/blog', router: require('./src/blog/router') },
+    { path: '/profile', router: require('./src/profile/router') },
 ];
 
 routes.forEach(route => {

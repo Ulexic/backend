@@ -1,9 +1,24 @@
 const express = require('express');
 const router = require('express').Router();
 const db = require('../db');
-const { validateBodyContent, postExist, validateBodyLength, commentExist } = require('./validator');
-const { createPost, updatePost, getAllPosts, getPostById, deletePost } = require('./controllers/post.controller');
-const { createComment, deleteComment, getAllComments } = require('./controllers/comment.controller');
+const {
+    validateBodyContent,
+    postExist,
+    validateBodyLength,
+    commentExist,
+} = require('./validator');
+const {
+    createPost,
+    updatePost,
+    getAllPosts,
+    getPostById,
+    deletePost,
+} = require('./controllers/post.controller');
+const {
+    createComment,
+    deleteComment,
+    getAllComments,
+} = require('./controllers/comment.controller');
 
 router.use(express.json());
 
@@ -36,7 +51,7 @@ router.delete('/comments/:id', commentExist, deleteComment);
 // Get all comments for a post
 router.get('/posts/:id/comments', postExist, getAllComments);
 
+// Create a new comment for a post
 router.post('/posts/:id/comments', postExist, createComment);
-
 
 module.exports = router;
