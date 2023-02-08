@@ -1,14 +1,20 @@
-const express = require('express')
+const express = require('express');
 const app = express();
 
 let port = 4000;
 
 app.use(express.json());
 
-app.use("/account", require("./src/account/router"));
-app.use("/blog", require("./src/blog/router"));
-app.use("/profile", require("./src/profile/router"));
+const routes = [
+    { path: "/account", router: require("./src/account/router") },
+    { path: "/blog", router: require("./src/blog/router") },
+    { path: "/profile", router: require("./src/profile/router") }
+];
+
+routes.forEach(route => {
+    app.use(route.path, route.router);
+});
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+    console.log(`Example app listening at http://localhost:${port}`);
+});

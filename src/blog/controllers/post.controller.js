@@ -29,10 +29,6 @@ const getAllPosts = async (req, res) => {
     try {
         const posts = await Post.find({}).lean().exec();
 
-        for (let i = 0; i < posts.length; i++) {
-            posts[i] = removeFields(posts[i]);
-        }
-
         res.status(200).send(removeFields(posts));
     } catch (err) {
         return res.status(500).json({ message: err.message });
