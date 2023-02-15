@@ -5,7 +5,7 @@ const {
     deleteProfile,
     getProfileById,
     getProfilePosts,
-    getProfileComments
+    getProfileComments,
 } = require('./controllers/profile.controller');
 const { validateProfileNumber, profileExists } = require('./validator');
 const { deletePostsAndComments } = require('./middleware');
@@ -23,9 +23,9 @@ router.delete('/:id', deletePostsAndComments, deleteProfile);
 router.get('/:id', profileExists, getProfileById);
 
 // GET PROFILE POSTS
-router.get('/:id/posts', profileExists, getProfilePosts)
+router.get('/:id/posts', profileExists, getProfilePosts);
 
 // GET PROFILE COMMENTS
-router.get('/:id/comments', profileExists, getProfileComments)
+router.get('/:id/comments', profileExists, getProfileComments);
 
 module.exports = router;

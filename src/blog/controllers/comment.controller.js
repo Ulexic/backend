@@ -1,5 +1,5 @@
 const Comment = require('../models/comment');
-const Post = require('../models/post')
+const Post = require('../models/post');
 const { removeFields } = require('../../utils/utils');
 const { uuid } = require('uuidv4');
 
@@ -37,7 +37,7 @@ const getAllComments = async (req, res) => {
     try {
         const comments = await Comment.find({ post: req.params.id });
 
-        return res.status(200).json({ comments: removeFields(comments)});
+        return res.status(200).json({ comments: removeFields(comments) });
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

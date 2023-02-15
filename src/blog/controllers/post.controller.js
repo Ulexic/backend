@@ -1,7 +1,7 @@
 const { getUrl } = require('../../utils/utils');
 const { removeFields } = require('../../utils/utils');
-const  Comment  = require('../models/comment')
-const  Post  = require('../models/post')
+const Comment = require('../models/comment');
+const Post = require('../models/post');
 
 const createPost = async (req, res) => {
     const post = new Post(req.body);

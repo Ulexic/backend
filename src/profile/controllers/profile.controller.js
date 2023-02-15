@@ -1,7 +1,7 @@
 const Person = require('../models/person');
 const Company = require('../models/company');
 const Post = require('../../blog/models/post');
-const Comment = require('../../blog/models/comment')
+const Comment = require('../../blog/models/comment');
 const { removeFields, getUrl } = require('../../utils/utils');
 const Profile = require('../models/profile');
 const {
@@ -53,14 +53,14 @@ const deleteProfile = async (req, res) => {
 };
 
 const getProfileById = async (req, res) => {
-    return res.status(200).json({ profile: removeFields(req.profile)});
+    return res.status(200).json({ profile: removeFields(req.profile) });
 };
 
 const getProfileComments = async (req, res) => {
     try {
         const comments = await Comment.find({ createdBy: req.params.id });
 
-        return res.status(200).json({comments: comments});
+        return res.status(200).json({ comments: comments });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
@@ -68,8 +68,8 @@ const getProfileComments = async (req, res) => {
 
 const getProfilePosts = async (req, res) => {
     try {
-        const posts = await Post.find({ createdBy: req.params.id})
-        return res.status(200).json({posts: posts});
+        const posts = await Post.find({ createdBy: req.params.id });
+        return res.status(200).json({ posts: posts });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }

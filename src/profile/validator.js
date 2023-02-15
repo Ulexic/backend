@@ -1,6 +1,6 @@
 const Person = require('./models/person');
 const Company = require('./models/company');
-const Profile = require('./models/profile')
+const Profile = require('./models/profile');
 const { TOO_MANY_PROFILES, PROFILE_NOT_FOUND } = require('../utils/responseMessages');
 
 const validateProfileNumber = async (req, res, next) => {
@@ -27,9 +27,9 @@ const profileExists = async (req, res, next) => {
     }
 
     next();
-}
+};
 
 module.exports = {
     validateProfileNumber,
-    profileExists
+    profileExists,
 };
