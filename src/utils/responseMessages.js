@@ -4,6 +4,8 @@ const responseMessages = {
     INVALID_BODY_LENGTH: 'Body must be between 10 and 200 characters',
     POST_NOT_FOUND: 'Post not found',
     SERVER_ERROR: 'Server error',
+    TOO_MANY_PROFILES: 'You already have 5 profiles',
+    PROFILE_NOT_FOUND: 'Profile not found',
 };
 
 module.exports = responseMessages;

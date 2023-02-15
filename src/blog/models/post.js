@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
-const { uuid, jsonSchema } = require('uuidv4');
+const { v4: uuidv4 } = require('uuid');
 
 const postSchema = new mongoose.Schema({
-    commentsCount: {
-        type: Number,
-        default: 0,
-    },
     content: {
         type: String,
     },
@@ -13,19 +9,20 @@ const postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    createdBy: {
+        type: String,
+        ref: 'Profile',
+    },
     id: {
-        type: jsonSchema.v4.type,
-        required: true,
-        unique: true,
-        default: '1',
+        type: String,
+        default: uuidv4,
     },
     title: {
         type: String,
-        required: true,
     },
     updatedAt: {
         type: Date,
     },
 });
 
-module.exports = Post = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Post', postSchema);

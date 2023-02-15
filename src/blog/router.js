@@ -1,6 +1,5 @@
 const express = require('express');
 const router = require('express').Router();
-const db = require('../db');
 const {
     validateBodyContent,
     postExist,
@@ -28,22 +27,20 @@ router.use((req, res, next) => {
     next();
 });
 
-db.connect();
+// Get all posts
+router.get('/', getAllPosts);
+
+// Create a new post
+router.post('/', validateBodyContent, validateBodyLength, createPost);
 
 // Delete a post
 router.delete('/:id', postExist, deletePost);
-
-// Get all posts
-router.get('/', getAllPosts);
 
 // Get a single post
 router.get('/:id', postExist, getPostById);
 
 // Update a post
 router.patch('/:id', postExist, validateBodyContent, validateBodyLength, updatePost);
-
-// Create a new post
-router.post('/', validateBodyContent, validateBodyLength, createPost);
 
 // Delete a single comment for a post
 router.delete('/comments/:id', commentExist, deleteComment);

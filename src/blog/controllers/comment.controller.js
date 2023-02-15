@@ -1,11 +1,11 @@
 const Comment = require('../models/comment');
+const Post = require('../models/post')
 const { removeFields } = require('../../utils/utils');
 const { uuid } = require('uuidv4');
 
 const createComment = async (req, res) => {
     const comment = new Comment(req.body);
-    comment.id = uuid();
-    comment.post = req.post.id;
+    comment.postId = req.post.id;
 
     req.post.commentsCount += 1;
 
@@ -21,11 +21,10 @@ const createComment = async (req, res) => {
 
 const deleteComment = async (req, res, next) => {
     try {
-        const post = await Post.findOne({ id: req.comment.post });
-        console.log(post);
+        const post = await Post.findOne({ id: req.comment.postId });
         post.commentsCount -= 1;
 
-        await Comment.deleteOne({ id: req.params.id }).lean().exec();
+        await Comment.deleteOne({ id: req.params.id }).exec();
         await post.save();
 
         return res.status(204).end();
@@ -36,9 +35,9 @@ const deleteComment = async (req, res, next) => {
 
 const getAllComments = async (req, res) => {
     try {
-        const comments = await Comment.find({ post: req.params.id }).lean().exec();
+        const comments = await Comment.find({ post: req.params.id });
 
-        res.status(200).send(removeFields(comments));
+        return res.status(200).json({ comments: removeFields(comments)});
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

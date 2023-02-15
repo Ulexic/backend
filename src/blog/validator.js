@@ -15,11 +15,11 @@ const commentExist = async (req, res, next) => {
         }
 
         req.comment = comment;
-
-        next();
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
+
+    next();
 };
 
 const postExist = async (req, res, next) => {
@@ -31,11 +31,11 @@ const postExist = async (req, res, next) => {
         }
 
         req.post = post;
-
-        next();
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }
+
+    next();
 };
 
 const validateBodyContent = (req, res, next) => {

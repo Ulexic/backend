@@ -1,13 +1,43 @@
 const express = require('express');
-const router = require('express').Router();
+const router = express.Router();
 
-// @body: {username: string, password: string}
-router.post('/login', (req, res) => {
-    res.send('Hello World!');
+const { authenticate } = require('../middlewares/authenticate');
+const { deleteAccount, login, register } = require('./controllers/account_controller');
+
+router.post('/login', login);
+
+router.post('/register', register);
+router.get('/verify', authenticate, (req, res) => {
+    return res.status(200).json({ id: req.account, email: req.email });
+});
+router.post('/forgot-password', (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        return res.json('Forgot');
+    } catch (err) {
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+router.post('/reset-password', (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        return res.json('Reset password');
+    } catch (err) {
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+router.post('/change-password', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        return res.json('Change');
+    } catch (err) {
+        return res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.post('/register', (req, res) => {
-    res.send('Hello World!');
-});
+router.delete('/delete', deleteAccount);
 
 module.exports = router;

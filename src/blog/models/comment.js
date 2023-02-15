@@ -1,5 +1,5 @@
-const { uuid, jsonSchema } = require('uuidv4');
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
 const commentSchema = new mongoose.Schema({
     content: {
@@ -10,19 +10,18 @@ const commentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    createdBy: {
+        type: String,
+        ref: 'Profile',
+    },
     id: {
-        required: true,
-        type: jsonSchema.v4.type,
-        unique: true,
+        type: String,
+        default: uuidv4,
     },
-    post: {
-        type: jsonSchema.v4.type,
+    postId: {
+        type: String,
+        ref: 'Post',
     },
 });
 
-commentSchema.pre('save', function (next) {
-    this.id = uuid();
-    next();
-});
-
-module.exports = Content = mongoose.model('Comment', commentSchema);
+module.exports = mongoose.model('Comment', commentSchema);
