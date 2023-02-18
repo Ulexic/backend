@@ -1,5 +1,4 @@
-const { getUrl } = require('../../utils/utils');
-const { removeFields } = require('../../utils/utils');
+const { getUrl, getPagedResults, removeFields } = require('../../utils/utils');
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
@@ -31,10 +30,11 @@ const deletePost = async (req, res, next) => {
 };
 
 const getAllPosts = async (req, res) => {
-    try {
-        let posts = await Post.findOne({});
+    const { page = 1, per_page = 10 } = req.query;
 
-        return res.status(200).json(removeFields(posts));
+    try {
+        let posts = await getPagedResults(Post, per_page, page);
+        return res.status(200).json(posts);
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

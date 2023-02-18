@@ -1,10 +1,13 @@
 const Post = require('./models/post');
 const Comment = require('./models/comment');
+const Profile = require('../profile/models/profile');
 const {
     POST_NOT_FOUND,
     INVALID_BODY,
     INVALID_BODY_LENGTH,
     COMMENT_NOT_FOUND,
+    UNDEFINED_CREATEDBY,
+    UNAUTHORIZED,
 } = require('../utils/responseMessages');
 
 const commentExist = async (req, res, next) => {
@@ -54,9 +57,27 @@ const validateBodyLength = (req, res, next) => {
     next();
 };
 
+const validateCreatedBy = async (req, res, next) => {
+    if(!req.body.createdBy) {
+        return res.status(400).send(UNDEFINED_CREATEDBY);
+    }
+
+    const profile = await Profile.findOne({ id: req.body.createdBy }).exec();
+    
+    console.log(profile);
+    console.log(req.account);
+
+    if (!profile || profile.owner !== req.account) {
+        return res.status(401).send(UNAUTHORIZED);
+    }
+
+    next();
+};
+
 module.exports = {
     commentExist,
     validateBodyContent,
     validateBodyLength,
     postExist,
+    validateCreatedBy,
 };

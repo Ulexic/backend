@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+const { accountExists, deleteProfile } = require('./middleware');
 const { authenticate } = require('../middlewares/authenticate');
 const { deleteAccount, login, register } = require('./controllers/account_controller');
+const account = require('./models/account');
 
 router.post('/login', login);
 
@@ -38,6 +40,6 @@ router.post('/change-password', async (req, res) => {
     }
 });
 
-router.delete('/delete', deleteAccount);
+router.delete('/delete',authenticate, deleteProfile, deleteAccount);
 
 module.exports = router;

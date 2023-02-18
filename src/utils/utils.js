@@ -24,4 +24,30 @@ function getUrl(req, extra) {
     return url;
 }
 
-module.exports = { removeFields, getUrl };
+async function getPagedResults(type, per_page, page) {
+    try {
+        const res = await type.find({})
+            .limit(per_page)
+            .skip(per_page * (page - 1))
+            .exec();
+            
+        const count = await type.countDocuments();
+        const pages = Math.ceil(count / per_page);
+
+        let results = {
+            meta: {
+                page,
+                per_page,
+                count,
+                pages,
+            },
+            results: removeFields(res)
+        };
+
+        return results;
+    } catch (err) {
+        throw err;
+    }
+}
+
+module.exports = { removeFields, getUrl, getPagedResults };

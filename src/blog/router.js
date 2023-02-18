@@ -5,6 +5,7 @@ const {
     postExist,
     validateBodyLength,
     commentExist,
+    validateCreatedBy,
 } = require('./validator');
 const {
     createPost,
@@ -28,27 +29,27 @@ router.use((req, res, next) => {
 });
 
 // Get all posts
-router.get('/', getAllPosts);
+router.get('/posts', getAllPosts);
 
 // Create a new post
-router.post('/', validateBodyContent, validateBodyLength, createPost);
+router.post('/posts', validateBodyContent, validateBodyLength, validateCreatedBy, createPost);
 
 // Delete a post
-router.delete('/:id', postExist, deletePost);
+router.delete('/posts/:id', postExist, validateCreatedBy, deletePost);
 
 // Get a single post
-router.get('/:id', postExist, getPostById);
+router.get('posts/:id', postExist, getPostById);
 
 // Update a post
-router.patch('/:id', postExist, validateBodyContent, validateBodyLength, updatePost);
+router.patch('/posts/:id', postExist, validateBodyContent, validateBodyLength, validateCreatedBy, updatePost);
 
 // Delete a single comment for a post
-router.delete('/comments/:id', commentExist, deleteComment);
+router.delete('/comments/:id', commentExist, validateCreatedBy, deleteComment);
 
 // Get all comments for a post
 router.get('/posts/:id/comments', postExist, getAllComments);
 
 // Create a new comment for a post
-router.post('/posts/:id/comments', postExist, createComment);
+router.post('/posts/:id/comments', postExist, validateCreatedBy, createComment);
 
 module.exports = router;
