@@ -1,7 +1,7 @@
 const { Account } = require('./models/account');
-const  Profile  = require('../profile/models/profile');
-const  Post = require('../blog/models/post');
-const  Comment  = require('../blog/models/comment');
+const Profile = require('../profile/models/profile');
+const Post = require('../blog/models/post');
+const Comment = require('../blog/models/comment');
 const { ACCOUNT_NOT_FOUND } = require('../utils/responseMessages');
 
 const deleteProfile = async (req, res, next) => {
@@ -18,7 +18,7 @@ const deleteProfile = async (req, res, next) => {
     }
 
     next();
-};   
+};
 
 const accountExists = async (req, res, next) => {
     try {

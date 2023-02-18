@@ -40,6 +40,6 @@ router.post('/change-password', async (req, res) => {
     }
 });
 
-router.delete('/delete',authenticate, deleteProfile, deleteAccount);
+router.delete('/delete', authenticate, deleteProfile, deleteAccount);
 
 module.exports = router;

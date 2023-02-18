@@ -8,10 +8,7 @@ const createPost = async (req, res) => {
     try {
         await post.save();
 
-        return res
-            .header('Location', getUrl(req, post.id))
-            .status(201)
-            .json(removeFields(post));
+        return res.header('Location', getUrl(req, post.id)).status(201).json(removeFields(post));
     } catch (err) {
         return res.status(500).json({ message: err.message });
     }

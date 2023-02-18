@@ -35,7 +35,7 @@ const deleteComment = async (req, res, next) => {
 const getAllComments = async (req, res) => {
     const { page = 1, per_page = 10 } = req.query;
     try {
-        const comments = await getPagedResults(Comment, per_page, page)
+        const comments = await getPagedResults(Comment, per_page, page);
 
         return res.status(200).json(comments);
     } catch (err) {

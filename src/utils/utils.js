@@ -26,11 +26,12 @@ function getUrl(req, extra) {
 
 async function getPagedResults(type, per_page, page) {
     try {
-        const res = await type.find({})
+        const res = await type
+            .find({})
             .limit(per_page)
             .skip(per_page * (page - 1))
             .exec();
-            
+
         const count = await type.countDocuments();
         const pages = Math.ceil(count / per_page);
 
@@ -41,7 +42,7 @@ async function getPagedResults(type, per_page, page) {
                 count,
                 pages,
             },
-            results: removeFields(res)
+            results: removeFields(res),
         };
 
         return results;

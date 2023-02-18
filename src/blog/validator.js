@@ -58,12 +58,12 @@ const validateBodyLength = (req, res, next) => {
 };
 
 const validateCreatedBy = async (req, res, next) => {
-    if(!req.body.createdBy) {
+    if (!req.body.createdBy) {
         return res.status(400).send(UNDEFINED_CREATEDBY);
     }
 
     const profile = await Profile.findOne({ id: req.body.createdBy }).exec();
-    
+
     console.log(profile);
     console.log(req.account);
 

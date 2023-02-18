@@ -4,11 +4,7 @@ const Post = require('../../blog/models/post');
 const Comment = require('../../blog/models/comment');
 const { removeFields, getUrl } = require('../../utils/utils');
 const Profile = require('../models/profile');
-const {
-    INVALID_KIND,
-    PROFILE_NOT_FOUND,
-    SERVER_ERROR,
-} = require('../../utils/responseMessages');
+const { INVALID_KIND, PROFILE_NOT_FOUND, SERVER_ERROR } = require('../../utils/responseMessages');
 
 const createProfile = async (req, res) => {
     const { kind, ...body } = req.body;
@@ -28,10 +24,7 @@ const createProfile = async (req, res) => {
         }
         await profile.save();
 
-        return res
-            .header('Location', getUrl(req, profile.id))
-            .status(201)
-            .json(removeFields(profile));
+        return res.header('Location', getUrl(req, profile.id)).status(201).json(removeFields(profile));
     } catch (err) {
         return res.status(500).json({ msg: err });
     }

@@ -1,24 +1,8 @@
 const express = require('express');
 const router = require('express').Router();
-const {
-    validateBodyContent,
-    postExist,
-    validateBodyLength,
-    commentExist,
-    validateCreatedBy,
-} = require('./validator');
-const {
-    createPost,
-    updatePost,
-    getAllPosts,
-    getPostById,
-    deletePost,
-} = require('./controllers/post.controller');
-const {
-    createComment,
-    deleteComment,
-    getAllComments,
-} = require('./controllers/comment.controller');
+const { validateBodyContent, postExist, validateBodyLength, commentExist, validateCreatedBy } = require('./validator');
+const { createPost, updatePost, getAllPosts, getPostById, deletePost } = require('./controllers/post.controller');
+const { createComment, deleteComment, getAllComments } = require('./controllers/comment.controller');
 
 router.use(express.json());
 
